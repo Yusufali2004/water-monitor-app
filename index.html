@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Water Usage Monitoring System</title>
+  <meta name="description" content="Track your daily water usage, visualize consumption patterns, and receive smart suggestions to reduce water waste." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ HERO / HEADER ============ -->
+  <header id="app-header">
+    <div class="header-bg-animation">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="container text-center position-relative">
+      <div class="header-icon">
+        <i class="bi bi-droplet-fill"></i>
+      </div>
+      <h1 class="header-title">Smart Water Usage Monitoring System</h1>
+      <p class="header-subtitle">Track &middot; Analyze &middot; Save Every Drop</p>
+    </div>
+  </header>
+
+  <!-- ============ NAVIGATION PILLS ============ -->
+  <nav id="section-nav" class="sticky-top">
+    <div class="container">
+      <div class="nav-pills-wrapper">
+        <a href="#section-input" class="nav-pill active" data-section="section-input">
+          <i class="bi bi-plus-circle"></i> Add Usage
+        </a>
+        <a href="#section-dashboard" class="nav-pill" data-section="section-dashboard">
+          <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+        <a href="#section-insights" class="nav-pill" data-section="section-insights">
+          <i class="bi bi-lightbulb"></i> Insights
+        </a>
+        <a href="#section-tips" class="nav-pill" data-section="section-tips">
+          <i class="bi bi-bookmark-star"></i> Tips
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container main-content">
+
+    <!-- ============ SECTION 1: ADD WATER USAGE ============ -->
+    <section id="section-input" class="content-section">
+      <div class="section-header">
+        <i class="bi bi-droplet-half section-icon"></i>
+        <h2>Add Water Usage</h2>
+        <p>Log your daily water consumption by category</p>
+      </div>
+
+      <div class="card glass-card">
+        <div class="card-body p-4">
+          <form id="water-form" novalidate>
+            <div class="row g-3">
+              <!-- Date -->
+              <div class="col-md-4">
+                <label for="input-date" class="form-label">
+                  <i class="bi bi-calendar-event"></i> Date
+                </label>
+                <input type="date" class="form-control" id="input-date" required />
+              </div>
+
+              <!-- Liters -->
+              <div class="col-md-4">
+                <label for="input-liters" class="form-label">
+                  <i class="bi bi-water"></i> Liters Used
+                </label>
+                <input type="number" class="form-control" id="input-liters" placeholder="e.g. 150" min="1" required />
+              </div>
+
+              <!-- Category -->
+              <div class="col-md-4">
+                <label for="input-category" class="form-label">
+                  <i class="bi bi-tag"></i> Category
+                </label>
+                <select class="form-select" id="input-category" required>
+                  <option value="" disabled selected>Select category</option>
+                  <option value="Bath">🛁 Bath</option>
+                  <option value="Kitchen">🍳 Kitchen</option>
+                  <option value="Laundry">👕 Laundry</option>
+                  <option value="Gardening">🌱 Gardening</option>
+                  <option value="Drinking">🥤 Drinking</option>
+                </select>
+              </div>
+
+              <!-- Submit -->
+              <div class="col-12 text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-submit" id="btn-submit">
+                  <i class="bi bi-plus-lg"></i> Log Water Usage
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Toast notification -->
+          <div id="toast-container" class="toast-container-custom"></div>
+        </div>
+      </div>
+
+      <!-- Recent Entries Table -->
+      <div class="card glass-card mt-4">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0"><i class="bi bi-clock-history"></i> Recent Entries</h5>
+            <button class="btn btn-outline-danger btn-sm" id="btn-reset" title="Reset All Data">
+              <i class="bi bi-trash3"></i> Reset All
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover" id="entries-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Liters</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="entries-body">
+                <!-- Dynamic rows -->
+              </tbody>
+            </table>
+            <p class="text-muted text-center" id="no-data-msg">No entries yet. Start logging your water usage above!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2: DASHBOARD ============ -->
+    <section id="section-dashboard" class="content-section">
+      <div class="section-header">
+        <i class="bi bi-speedometer2 section-icon"></i>
+        <h2>Dashboard</h2>
+        <p>Your water consumption at a glance</p>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="row g-3 mb-4" id="stat-cards">
+        <div class="col-6 col-lg-3">
+          <div class="stat-card stat-total">
+            <div class="stat-icon"><i class="bi bi-droplet-fill"></i></div>
+            <div class="stat-value" id="stat-total">0 L</div>
+            <div class="stat-label">Total Usage</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat-card stat-avg">
+            <div class="stat-icon"><i class="bi bi-bar-chart-line"></i></div>
+            <div class="stat-value" id="stat-avg">0 L</div>
+            <div class="stat-label">Avg / Day</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat-card stat-latest">
+            <div class="stat-icon"><i class="bi bi-clock"></i></div>
+            <div class="stat-value" id="stat-latest">—</div>
+            <div class="stat-label">Latest Entry</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat-card stat-weekly">
+            <div class="stat-icon"><i class="bi bi-calendar-week"></i></div>
+            <div class="stat-value" id="stat-weekly">0 L</div>
+            <div class="stat-label">This Week</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="card glass-card chart-card">
+            <div class="card-body p-4">
+              <h5><i class="bi bi-bar-chart"></i> Daily Water Usage</h5>
+              <div class="chart-container">
+                <canvas id="bar-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card glass-card chart-card">
+            <div class="card-body p-4">
+              <h5><i class="bi bi-pie-chart"></i> Usage by Category</h5>
+              <div class="chart-container chart-container-pie">
+                <canvas id="pie-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3: SMART WATER INSIGHTS ============ -->
+    <section id="section-insights" class="content-section">
+      <div class="section-header">
+        <i class="bi bi-lightbulb section-icon"></i>
+        <h2>Smart Water Insights</h2>
+        <p>AI-powered analysis of your consumption patterns</p>
+      </div>
+
+      <div id="insights-container" class="insights-grid">
+        <!-- Dynamically populated -->
+        <div class="card glass-card text-center p-5" id="insights-empty">
+          <i class="bi bi-graph-up" style="font-size:3rem;color:var(--accent);"></i>
+          <p class="mt-3 text-muted">Add water usage entries to unlock smart insights.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4: WATER SAVING TIPS ============ -->
+    <section id="section-tips" class="content-section">
+      <div class="section-header">
+        <i class="bi bi-bookmark-star section-icon"></i>
+        <h2>How You Can Reduce Water Usage</h2>
+        <p>Personalized recommendations based on your habits</p>
+      </div>
+
+      <div id="tips-container" class="tips-grid">
+        <!-- Dynamically populated -->
+        <div class="card glass-card text-center p-5" id="tips-empty">
+          <i class="bi bi-hand-thumbs-up" style="font-size:3rem;color:var(--accent);"></i>
+          <p class="mt-3 text-muted">Start logging data to receive personalised water-saving tips!</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="app-footer">
+    <div class="container text-center">
+      <p><i class="bi bi-droplet-fill"></i> Smart Water Monitor &copy; 2026 &mdash; Save Water, Save Life</p>
+    </div>
+  </footer>
+
+  <!-- Confirm Modal (Reset) -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-card">
+        <div class="modal-header border-0">
+          <h5 class="modal-title"><i class="bi bi-exclamation-triangle text-warning"></i> Confirm Reset</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <strong>all</strong> water usage records? This action cannot be undone.
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="btn-confirm-reset">
+            <i class="bi bi-trash3"></i> Yes, Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <!-- App Script -->
+  <script src="script.js"></script>
+</body>
+</html>
