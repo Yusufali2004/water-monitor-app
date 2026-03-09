@@ -215,7 +215,12 @@ Drinking (highest) → RO reuse, fridge jug, refillable bottles
 
 ## 📸 Screenshots
 
-> _Add your own screenshots here before submission._
+<img width="1895" height="884" alt="Screenshot 2026-03-10 011904" src="https://github.com/user-attachments/assets/c75a35f0-be20-418e-ac0d-19ffdfb8f555" />
+<img width="1893" height="884" alt="Screenshot 2026-03-10 011930" src="https://github.com/user-attachments/assets/a72efbe8-1edb-491b-a6b2-7cc4854d0464" />
+<img width="1485" height="800" alt="Screenshot 2026-03-10 012001" src="https://github.com/user-attachments/assets/93a2844e-9fee-42c7-932b-f919ae12c726" />
+<img width="1116" height="433" alt="Screenshot 2026-03-10 012034" src="https://github.com/user-attachments/assets/aa1dad1f-564a-47cc-bf23-8a08532290ff" />
+<img width="1100" height="430" alt="Screenshot 2026-03-10 012048" src="https://github.com/user-attachments/assets/f9d2fe91-94b3-48e7-83ac-2e60b7e25bda" />
+
 
 | Section | Description |
 |---------|-------------|
