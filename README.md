@@ -120,7 +120,7 @@ water/
 
 1. **Clone or download** this repository:
    ```bash
-   git clone https://github.com/your-username/water-monitor-app.git
+   git clone https://github.com/Yusufali2004/water-monitor-app.git 
    ```
 
 2. **Navigate** to the project folder:
@@ -243,7 +243,8 @@ Drinking (highest) → RO reuse, fridge jug, refillable bottles
 
 | Name | Role |
 |------|------|
-| _Your Name_ | Developer & Designer |
+| Md Yusuf Ali | Developer & Designer |
+| Nobel V John | Concept Initiator |
 
 ---
 
